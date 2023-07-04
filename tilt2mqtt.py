@@ -4,7 +4,7 @@ Wrapper for reading messages from Tilt wireless hydrometer and forwarding them t
 
 The device acts as a simple Bluetooth IBeacon sending the following two values,
 
- * major: Temperature in Farenheit
+ * major: Temperature in Fahrenheit
  * minor: Specific gravity
 
 The raw values read from the Tilt are uncalibrated and should be calibrated before use. The script works a follows,
@@ -118,19 +118,19 @@ def callback(bt_addr, rssi, packet, additional_info):
 
     try:
         # Get uncalibrated values
-        temperature_farenheit = float(additional_info["major"])
+        temperature_fahrenheit = float(additional_info["major"])
         specific_gravity = float(additional_info["minor"])/1000
 
         # See if have calibration values. If so, use them.
         if (calibration[color]):
             suffix = "cali"
-            temperature_farenheit += calibration[color]['temp']
+            temperature_fahrenheit += calibration[color]['temp']
             specific_gravity += calibration[color]['sg']
         else:
             suffix = "uncali"
         
         # convert temperature
-        temperature_celsius = (temperature_farenheit - 32) * 5/9
+        temperature_celsius = (temperature_fahrenheit - 32) * 5/9
 
         # convert gravity
         degree_plato = 135.997*pow(specific_gravity, 3) - 630.272*pow(specific_gravity, 2) + 1111.14*specific_gravity - 616.868
@@ -139,7 +139,7 @@ def callback(bt_addr, rssi, packet, additional_info):
             "specific_gravity_"+suffix: "{:.3f}".format(specific_gravity),
             "plato_"+suffix: "{:.2f}".format(degree_plato),
             "temperature_celsius_"+suffix: "{:.2f}".format(temperature_celsius),
-            "temperature_farenheit_"+suffix: "{:.1f}".format(temperature_farenheit),
+            "temperature_fahrenheit_"+suffix: "{:.1f}".format(temperature_fahrenheit),
             "rssi": "{:d}".format(rssi)
         }
 

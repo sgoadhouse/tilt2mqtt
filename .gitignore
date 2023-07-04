@@ -1,5 +1,8 @@
+# Misc. Files
+tilt2mqtt-ORIG.py
+
 # Emacs
-*.~
+*~
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
